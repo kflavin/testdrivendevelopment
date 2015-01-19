@@ -2,3 +2,4 @@
 out.log
 .vim*
 *.log
+db.sqlite3
