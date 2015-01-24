@@ -13,6 +13,5 @@ def home_page(request):
     response =  render(request, 'home.html', {
         'new_item_text': request.POST.get('item_text', '')
     })
-    print response
     return response
         
