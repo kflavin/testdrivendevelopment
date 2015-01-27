@@ -2,8 +2,9 @@ from selenium import webdriver
 import unittest
 from selenium.webdriver.common.keys import Keys
 import time
+from django.test import LiveServerTestCase
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
     def tearDown(self):
@@ -15,7 +16,8 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         # User goes to checkout homepage
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
+        #self.browser.get('http://localhost:8000')
 
         # User notices the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
@@ -45,7 +47,6 @@ class NewVisitorTest(unittest.TestCase):
 
         self.check_for_row_in_list_table('1: Buy peacock feathers')
         self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
-
         #table = self.browser.find_element_by_id('id_list_table')
         #print "text of the table", table.text
         #rows = table.find_elements_by_tag_name('tr')
