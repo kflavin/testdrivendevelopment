@@ -14,9 +14,11 @@ class NewVisitorTest(StaticLiveServerTestCase):
             print "arg", arg
             if 'liveserver' in arg:
                 cls.server_url = 'http://' + arg.split('=')[1]
+                print "Server URL", cls.server_url
                 return
         super(NewVisitorTest, cls).setUpClass()
         cls.server_url = cls.live_server_url
+        print "Server URL", cls.server_url
 
     @classmethod
     def tearDownClass(cls):
