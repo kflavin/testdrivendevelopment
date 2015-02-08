@@ -3,3 +3,5 @@ out.log
 .vim*
 *.log
 db.sqlite3
+.nv
+.mozilla
