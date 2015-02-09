@@ -48,7 +48,7 @@ def _update_virtualenv(source_folder):
     run('%s/bin/pip install -r %s/requirements/production.txt' % ( virtualenv_folder, source_folder))
 
 def _update_static_files(source_folder):
-    run('cd %s/tdd && ../../virtualenv/bin/python manage.py collectstatic --noinput' % (source_folder,))
+    run('cd %s/tdd && DJANGO_SETTINGS_MODULE=tdd.settings.production ../../virtualenv/bin/python manage.py collectstatic --noinput' % (source_folder,))
 
 def _update_database(source_folder):
-    run('cd %s/tdd && ../../virtualenv/bin/python manage.py migrate --noinput' % (source_folder,))
+    run('cd %s/tdd && DJANGO_SETTINGS_MODULE=tdd.settings.production ../../virtualenv/bin/python manage.py migrate --noinput' % (source_folder,))
