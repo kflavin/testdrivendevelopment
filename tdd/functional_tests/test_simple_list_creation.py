@@ -1,62 +1,9 @@
 from selenium import webdriver
 import unittest
 from selenium.webdriver.common.keys import Keys
-import time
-import sys
-#from django.test import LiveServerTestCase
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from .base import FunctionalTest
 
-class NewVisitorTest(StaticLiveServerTestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        for arg in sys.argv:
-            print "arg", arg
-            if 'liveserver' in arg:
-                cls.server_url = 'http://' + arg.split('=')[1]
-                print "Server URL", cls.server_url
-                return
-        super(NewVisitorTest, cls).setUpClass()
-        cls.server_url = cls.live_server_url
-        print "Server URL", cls.server_url
-
-    @classmethod
-    def tearDownClass(cls):
-        if cls.server_url == cls.live_server_url:
-            super(NewVisitorTest, cls).tearDownClass()
-
-    def setUp(self):
-        self.browser = webdriver.Firefox()
-    def tearDown(self):
-        self.browser.quit()
-
-    def test_layout_and_styling(self):
-        # Edith goes to the homepage
-        self.browser.get(self.server_url)
-        self.browser.set_window_size(1024, 768)
-
-        # She notices the input box is nicely centered
-        inputbox = self.browser.find_element_by_id('id_new_item')
-        self.assertAlmostEqual(
-            inputbox.location['x'] + inputbox.size['width'] / 2,
-            512,
-            delta=5
-        )
-
-        # She starts a new list and sees the input is nicely
-        # centered there too
-        inputbox.send_keys('testing\n')
-        inputbox = self.browser.find_element_by_id('id_new_item')
-        self.assertAlmostEqual(
-            inputbox.location['x'] + inputbox.size['width'] / 2,
-            512,
-            delta = 5
-        )
-
-    def check_for_row_in_list_table(self, row_text):
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn(row_text, [row.text for row in rows])
+class NewVisitorTest(FunctionalTest):
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         # User goes to checkout homepage
@@ -128,29 +75,3 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
         # User is invited to enter a to-do list item
 
-
-if __name__ == '__main__':
-    #unittest.main(warnings='ignore')
-    unittest.main()
-
-
-
-# User wants to check out to-do app.  goes to homepage
-
-# User notices the title
-
-# User is invited to enter a to-do item
-
-# User types in their todo message, "run errands"
-
-# User hits enter, the page updates and shows the todo item
-
-# There is a another box to enter more items, User enter "clean house"
-
-# Page updates again and shows both items
-
-# User wonders if list has been saved; site generates a unique URL for user
-
-# User visits URL to see that todo list is still there
-
-# User satisfied, and exits
