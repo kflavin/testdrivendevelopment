@@ -5,6 +5,7 @@ from lists.models import Item, List
 # Create your views here.
 
 def home_page(request):
+    pass
     #return HttpResponse('<html><title>To-Do lists</title></html>')
 
     #if request.method == 'POST':
