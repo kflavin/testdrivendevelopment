@@ -3,6 +3,7 @@ from fabric.api import env, local, run
 import random
 import time
 import sys
+import os
 
 REPO_URL = 'https://github.com/kflavin/testdrivendevelopment.git'
 
@@ -35,7 +36,9 @@ def _get_latest_source(source_folder):
     else:
         run('git clone %s %s' % (REPO_URL, source_folder))
 
+    print "your current folder", os.getcwd()
     current_commit = local("git log -n 1 --format=%H", capture=True)
+    print "I found current commit to be", current_commit
     run('cd %s && git reset --hard %s' % (source_folder, current_commit))
 
 def _install_gunicorn(source_folder):
