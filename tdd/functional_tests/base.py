@@ -10,14 +10,15 @@ class FunctionalTest(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         for arg in sys.argv:
-            #print "arg", arg
             if 'liveserver' in arg:
                 cls.server_url = 'http://' + arg.split('=')[1]
+                print "Looking up", cls.server_url
                 #print "Server URL", cls.server_url
                 return
-            else:
-                cls.server_url = 'http://localhost:8000'
-                return
+        else:
+            cls.server_url = 'http://localhost:8000'
+            print "Looking up", cls.server_url
+            return
         #super(FunctionalTest, cls).setUpClass()
         #cls.server_url = cls.live_server_url
 
@@ -35,4 +36,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn(row_text, [row.text for row in rows])
+
+    def get_item_input_box(self):
+        return self.browser.find_element_by_id('id_text')
 
