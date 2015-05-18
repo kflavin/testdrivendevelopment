@@ -5,7 +5,7 @@ class ItemValidationTest(FunctionalTest):
         # Edith goes to the home page and accidentally tries to submit
         # an empty list item.  She hits Enter on the empty input box
         self.browser.get(self.server_url)
-        self.get_item_input_box()
+        self.get_item_input_box().send_keys('\n')
         
         # The home page refreshes, and there is an error message saying
         # that list items cannot be blank
